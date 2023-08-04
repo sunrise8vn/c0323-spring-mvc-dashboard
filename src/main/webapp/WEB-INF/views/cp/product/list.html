@@ -50,7 +50,49 @@
                 <!-- end page title -->
 
                 <div class="row">
-                    <h1>List of products...</h1>
+                    <div class="col-lg-12">
+                        <div class="card-box">
+                            <h4 class="header-title">Bảo Thi Single</h4>
+                            <p class="sub-header">
+                                Create responsive tables by wrapping any <code>.table</code> in <code>.table-responsive</code>
+                                to make them scroll horizontally on small devices (under 768px).
+                            </p>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Giá</th>
+                                            <th>Đơn vị</th>
+                                            <th>Danh mục</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <th:block th:each="item : ${products}">
+                                            <tr>
+                                                <td th:text="${item.id}"></td>
+                                                <td th:text="${item.title}"></td>
+                                                <td th:text="${item.price}"></td>
+                                                <td th:text="${item.unit}"></td>
+                                                <td th:text="${item.categoryTitle}"></td>
+                                                <td>
+                                                    <a th:href="@{/cp/products/__${item.id}__}">
+                                                        <button>
+                                                            Chỉnh sửa
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </th:block>
+                                    </tbody>
+                                </table>
+                            </div> <!-- end table-responsive-->
+
+                        </div> <!-- end card-box -->
+                    </div>
                 </div>
 
             </div> <!-- container -->
