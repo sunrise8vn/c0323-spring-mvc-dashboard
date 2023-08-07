@@ -90,10 +90,13 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="categoryTitle">Danh mục<span
+                                            <label for="category">Danh mục<span
                                                     class="text-danger">*</span></label>
-                                            <input type="text" placeholder="Danh mục..." class="form-control"
-                                                   name="categoryTitle" id="categoryTitle">
+                                            <select id="category" name="category" class="form-control">
+                                                <th:block th:each="item : ${categories}">
+                                                    <option th:value="${item.id}" th:text="${item.title}"></option>
+                                                </th:block>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

@@ -1,26 +1,33 @@
 package com.cg.controller;
 
 
+import com.cg.model.Category;
 import com.cg.model.Product;
-import com.cg.service.IProductService;
-import com.cg.service.ProductServiceImpl;
+import com.cg.service.category.ICategoryService;
+import com.cg.service.product.IProductService;
+import com.cg.service.product.ProductServiceImpl;
+import org.hibernate.service.spi.InjectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/cp/products")
 public class ProductController {
 
-    private IProductService productService = new ProductServiceImpl();
+//    private IProductService productService = new ProductServiceImpl();
 
-    @GetMapping("/cp/products")
+    @Autowired
+    private IProductService productService;
+
+    @Autowired
+    private ICategoryService categoryService;
+
+    @GetMapping
     public String showListPage(Model model) {
         List<Product> products = productService.findAll();
         model.addAttribute("products", products);
@@ -28,14 +35,20 @@ public class ProductController {
     }
 
 
-    @GetMapping("/cp/products/create")
+    @GetMapping("/create")
     public String showCreatePage(Model model) {
+
+        List<Category> categories = categoryService.findAll();
+
         model.addAttribute("success", false);
         model.addAttribute("message", "");
+
+        model.addAttribute("categories", categories);
+
         return "cp/product/create";
     }
 
-    @GetMapping("/cp/products/{productId}")
+    @GetMapping("/{productId}")
     public String showUpdatePage(@PathVariable Long productId, Model model) {
 
         Optional<Product> productOptional = productService.findById(productId);
@@ -54,10 +67,10 @@ public class ProductController {
         return "cp/product/edit";
     }
 
-    @PostMapping("/cp/products/create")
+    @PostMapping("/create")
     public String create(@ModelAttribute Product product, Model model) {
 
-        productService.add(product);
+        productService.save(product);
 
         model.addAttribute("success", true);
         model.addAttribute("message", "Thêm sản phẩm thành công");
@@ -65,18 +78,18 @@ public class ProductController {
         return "cp/product/create";
     }
 
-    @PostMapping("/cp/products/{productId}")
+    @PostMapping("/{productId}")
     public String update(@PathVariable Long productId, @ModelAttribute Product product, Model model) {
-        Optional<Product> productOptional = productService.findById(productId);
-
-        if (productOptional.isEmpty()) {
-            model.addAttribute("error", true);
-            model.addAttribute("message", "Sản phẩm không tồn tại");
-        }
-        else {
-            product.setId(productId);
-           productService.update(product);
-        }
+//        Optional<Product> productOptional = productService.findById(productId);
+//
+//        if (productOptional.isEmpty()) {
+//            model.addAttribute("error", true);
+//            model.addAttribute("message", "Sản phẩm không tồn tại");
+//        }
+//        else {
+//            product.setId(productId);
+//           productService.update(product);
+//        }
 
         return "redirect: /cp/products";
     }

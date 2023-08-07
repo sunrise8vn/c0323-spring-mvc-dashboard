@@ -77,7 +77,7 @@
                                                 <td th:text="${item.title}"></td>
                                                 <td th:text="${item.price}"></td>
                                                 <td th:text="${item.unit}"></td>
-                                                <td th:text="${item.categoryTitle}"></td>
+                                                <td th:text="${item.category.title}"></td>
                                                 <td>
                                                     <a th:href="@{/cp/products/__${item.id}__}">
                                                         <button>
