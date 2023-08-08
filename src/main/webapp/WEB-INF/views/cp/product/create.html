@@ -62,20 +62,27 @@
                                 <h4 class="header-title" th:text="${message}"></h4>
                             </div>
                         </th:block>
+                        <th:block th:if="${error} == true">
+                            <div class="alert-danger">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('productDTO.*')}" th:text="${err}"></li>
+                                </ul>
+                            </div>
+                        </th:block>
                         <div class="card-box">
-                            <form class="parsley-form" method="post">
+                            <form class="parsley-form" method="post" th:object="${product}">
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="title">Tên sản phẩm<span class="text-danger">*</span></label>
                                             <input type="text" name="title" placeholder="Tên sản phẩm..."
-                                                   class="form-control" id="title">
+                                                   class="form-control" id="title" th:value="*{title}">
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="price">Giá<span class="text-danger">*</span></label>
-                                            <input type="number" name="price" placeholder="Giá..." class="form-control"
+                                            <input type="text" name="price" placeholder="Giá..." class="form-control"
                                                    id="price">
                                         </div>
                                     </div>

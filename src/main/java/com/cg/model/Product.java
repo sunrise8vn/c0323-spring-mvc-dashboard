@@ -3,6 +3,7 @@ package com.cg.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
 
@@ -17,8 +18,12 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+//    @NotBlank(message = "Tiêu đề không được để trống")
     private String title;
     private BigDecimal price;
+
+//    @NotBlank(message = "Đơn vị không được để trống")
     private String unit;
 
     @ManyToOne
@@ -35,4 +40,5 @@ public class Product {
                 ", category=" + category +
                 '}';
     }
+
 }
